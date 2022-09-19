@@ -5,7 +5,7 @@ public class Roda {
 	Random rand = new Random();
 	
 	public Roda(){
-		CalibragemPneu = rand.nextboolean();
+		CalibragemPneu = rand.nextBoolean();
 	}
 	
 	public boolean getCalibragem(){

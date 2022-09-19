@@ -10,24 +10,24 @@ public class Veiculo {
     private Roda[] rodas = new Roda[4];
     private Random rand = new Random();
 
-    public int Veiculo() {
-        ipva = rand.nextboolean();
+    public Veiculo() {
+        ipva = rand.nextBoolean();
         id = 1;
         DistanciaPercorrida = 0;
-        combustivel = 2.5;
-		
+        combustivel = 2;
+
 		for(int i = 0 ; i < 4 ; i++)
-			Roda[i] = new Roda();
+            rodas[i] = new Roda();
     }
 
-    public int Veiculo(int iD) {
-        ipva = rand.nextboolean();
+    public Veiculo(int iD) {
+        ipva = rand.nextBoolean();
         DistanciaPercorrida = 0;
         id = iD + 1;
-        combustivel = 2.5;
-			
-		for(int i = 0 ; i < 4 ; i++)
-			Roda[i] = new Roda();
+        combustivel = 2;
+		
+        for(int i = 0 ; i < 4 ; i++)
+            rodas[i] = new Roda();
     }
 
 	public int getId(){
@@ -35,7 +35,7 @@ public class Veiculo {
 	}
 		
 	public void removerVeic(int iD){
-		ipva = null;
+		ipva = false;
         DistanciaPercorrida = 0;
         id = -1;
         combustivel = 0;
@@ -52,7 +52,12 @@ public class Veiculo {
     }
 	
 	public void calibragemGeral(boolean ac){
-        if(rodas[pneu].getCalibragem() != ac)
-            rodas[pneu].setCalibragem(ac);
+        if(rodas[id].getCalibragem() != ac)
+            for(int i = 0 ; i < 4 ; i++)
+                rodas[i].setCalibragem(ac);
+    }
+
+    public void mover(){
+        
     }
 }
