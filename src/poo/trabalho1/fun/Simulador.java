@@ -18,14 +18,6 @@ public class Simulador implements Serializable {
 		return (i < 20) ? i : -1;
 	}
 
-	//Método para encontrar o índice de um id
-	/*private int encontraIndice(int id){
-		int i;
-		for(i = 0 ; (i < 20) && (veic[i].getId() != id) ; i++);
-
-		return (i < 20) ? i : -1;
-	}*/
-
 	private int encontraIndice(int id){
 		int i;
 		for(i = 0 ; i < 20 ; i++){
@@ -155,6 +147,13 @@ public class Simulador implements Serializable {
 		return false;
 	}
 
+
+	public void getVeic(boolean b){
+		for(int i = 0 ; i < 20 ; i++){
+			if(veic[i] != null)
+				Simulador.setQuant(1);
+		}
+	}
 	public void getVeic(){
 		int i;
 		
@@ -164,7 +163,7 @@ public class Simulador implements Serializable {
 				System.out.println("Distancia Percorrida: " + veic[i].getDistanciaPercorrida());
 				System.out.println("Combustivel: " + veic[i].getCombustivel());
 				System.out.println("IPVA Status: " + veic[i].getIpva());
-				System.out.println("Roda Status:\n" + veic[i].getRoda());
+				System.out.println(veic[i].getRoda());
 				System.out.printf("\n");
 			}	
 		}

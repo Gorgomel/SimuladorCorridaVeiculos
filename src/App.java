@@ -1,5 +1,5 @@
 
-import poo.trabalho1.fun.*;
+/*import poo.trabalho1.fun.*;
 import poo.trabalho1.gui.*;
 import poo.trabalho1.gui.botoes.*;
 
@@ -10,4 +10,4 @@ public class App{
         Veiculo veic = new Veiculo();
 
     }
-}
+}*/

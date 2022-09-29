@@ -1,7 +1,8 @@
 package poo.trabalho1.fun;
 import java.util.Random;
+import java.io.Serializable;
 
-public class Roda {
+public class Roda implements Serializable{
     private boolean CalibragemPneu;
 	private Random rand = new Random();
 	

@@ -1,11 +1,13 @@
 package poo.trabalho1.fun;
 import java.util.Random;
 
-public class Veiculo {
+import java.io.Serializable;
+
+public class Veiculo  implements Serializable{
     private float combustivel;
     private int id;
     private int distanciaPercorrida;
-    //private int quantidadeRodas;
+    private int quantidadeRodas;
     private boolean ipva;
     private String [] desenho = new String[4];
     Roda[] rodas = new Roda[4];
@@ -19,14 +21,19 @@ public class Veiculo {
         ipva = rand.nextBoolean();
         distanciaPercorrida = 0;
         this.id = id;
-        this.combustivel = 2.5f;
+        combustivel = 2.5f;
+        quantidadeRodas = 0;
         desenho[0] = "    ____\n";
         desenho[1] = " __/  |_ \\_\n";
         desenho[2] = "|  _     _``-.\n";
         desenho[3] =  "'-(_)---(_)--'\n\n\n";
 		
-        for(int i = 0 ; i < 4 ; i++)
+        for(int i = 0 ; i < 4 ; i++){
             rodas[i] = new Roda();
+            
+            if(rodas[i].getCalibragem() == true)
+                quantidadeRodas += 1;
+        }
     }
 
 	public int getId(){
@@ -46,9 +53,7 @@ public class Veiculo {
     }
 
     public String getRoda(){
-        String str = " ";
-
-        return str = "Roda 1: " + rodas[0].getCalibragem()+ "\nRoda 2: " + rodas[1].getCalibragem()
+        return "Rodas Calibradas: " + quantidadeRodas + "\nRoda 1: " + rodas[0].getCalibragem()+ "\nRoda 2: " + rodas[1].getCalibragem()
         + "\nRoda 3: " + rodas[2].getCalibragem() + "\nRoda 4: " + rodas[3].getCalibragem();
     }
 
@@ -108,6 +113,5 @@ public class Veiculo {
 
         else
             return false;
-
     }
 }

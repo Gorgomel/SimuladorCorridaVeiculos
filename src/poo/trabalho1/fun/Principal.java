@@ -2,6 +2,8 @@ package poo.trabalho1.fun;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.Scanner;
 
 public class Principal {
@@ -9,6 +11,8 @@ public class Principal {
         Simulador sim = new Simulador();
         Scanner scan = new Scanner(System.in);
         int n;
+
+        File arquivo = new File("simulador.dat");
 
         do{
             System.out.println("\nMENU");
@@ -238,14 +242,49 @@ public class Principal {
                         sim.imprimirPista();
                     break;
 
-                /*case 11:
+                //(11) Gravar ve´ıculos em arquivo
+                case 11:
+                if(Simulador.getQuant() > 0){
+                    System.out.println("Gravando arquivo");
 
+                    try{
+                        FileOutputStream fout = new FileOutputStream(arquivo);
+                        ObjectOutputStream oos = new ObjectOutputStream(fout);
+
+                        oos.writeObject(sim);
+
+                        oos.flush();
+                        oos.close();
+                        fout.close();
+                    }catch (Exception ex){
+                        System.err.println("erro "+ ex.toString());
+                    }
+                }
                 break;
 
-                case 12:
+                case 12:    
+                    try{
+                        FileInputStream fin = new FileInputStream(arquivo);
+                        ObjectInputStream oin = new ObjectInputStream(fin);
 
-                break;*/
+                        Simulador simArq = (Simulador) oin.readObject();
+                        sim = simArq;
+                        oin.close();
+                        fin.close();
+
+                        sim.getVeic(true);
+                        System.out.println(" Quantidade de Veiculos "+Simulador.getQuant());
+                        sim.imprimirPista();
+            
+                    }catch(Exception ex){
+                        System.err.println("erro: "+ ex.toString());
+                    }
+                
+
+                break;
         }
     }while(n != 13);
+
+    scan.close();
 }
 }
