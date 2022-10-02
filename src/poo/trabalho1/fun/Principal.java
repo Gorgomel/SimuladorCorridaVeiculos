@@ -6,13 +6,17 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.Scanner;
 
+/** Classe principal contendo um menu de interação para usar as funcionalidades de um veículo
+ *  @author Leonardo Brunno Sink Lopes
+ */
+
 public class Principal {
     public static void main(String[] args){
         Simulador sim = new Simulador();
         Scanner scan = new Scanner(System.in);
         int n;
 
-        File arquivo = new File("simulador.dat");
+        File arquivo = new File("saves\\simulador.dat");
 
         do{
             System.out.println("\nMENU");
@@ -30,7 +34,7 @@ public class Principal {
             System.out.println("(12) Ler veiculos do arquivo");
             System.out.println("(13) Sair da aplicacao");
 
-            do{
+            do{// Validando a entrada correta de valores para o menu
                 n = scan.nextInt(); 
                 if(n < 1 || n > 13)
                     System.out.println("Invalido");
@@ -41,7 +45,8 @@ public class Principal {
                 //(1) Incluir ve´ıculo
                 case 1:
                     System.out.println("\nINCLUIR VEICULO");
-                    if(Simulador.getQuant() <= 20){
+
+                    if(Simulador.getQuant() <= 20){ // Limite de 20 veículos 
                         System.out.println("Digite o iD : ");
 
                         int i = scan.nextInt();
@@ -61,16 +66,14 @@ public class Principal {
                                 System.out.println("Nao ha vagas para novos veiculos");
                                 break;
                         }
-                        
-
-                        
                     }
                     break;
                 
                 //(2) Remover ve´ıculo
                 case 2:
                     System.out.println("\nREMOVER VEICULO");
-                    if(Simulador.getQuant() > 0 ){
+
+                    if(Simulador.getQuant() > 0 ){ 
                         System.out.println("Digite o iD a ser removido: ");
                     
                         if((sim.removerVeic(scan.nextInt())) == 0){
@@ -89,6 +92,7 @@ public class Principal {
                 //(3) Abastecer ve´ıculo
                 case 3:
                     System.out.println("\nABASTECER VEICULO");
+
                     if(Simulador.getQuant() > 0 ){
                         int i, id, quant;
 
@@ -136,6 +140,7 @@ public class Principal {
                 //(5) Movimentar todos os ve´ıculos.
                 case 5:
                     System.out.println("\nMOVIMENTAR TODOS OS VEICULOS");
+        
                     if(Simulador.getQuant() > 0 ){
                         sim.mover();
                     }
@@ -178,8 +183,9 @@ public class Principal {
 
                             i = sim.calibragem(id, roda, acao);
 
-                            if(i >= 0){
+                           if(i >= 0){
                                 switch(i){
+
                                     case 0:
                                         System.out.println("Acao ja Realizada");
                                         break;
@@ -196,10 +202,11 @@ public class Principal {
                                         System.out.println("Erro "+i+": Valor para Acao invalido");
                                         break;
                                 }
-                            }   
+                            }
+                            
+                            else
+                            System.out.println("Acao realizada com sucesso");
                         }while(i > 0);
-
-                        System.out.println("Acao realizada com sucesso");
                     }
                     break;
 
@@ -207,31 +214,17 @@ public class Principal {
                 case 9:
                     System.out.println("\nESVAZIAR/ CALIBRAR TODOS OS PNEUS DE UM VEICULO ESPECIFICO");
                     if(Simulador.getQuant() > 0){
-                        int i, id;
+                        int id;
                         String acao;
                         
-                        do{
+                        //do{
                             System.out.println("Insira o id: ");
                             id = scan.nextInt();
 
                             System.out.println("Esvaziar ou calibrar? ('e' ou 'c'): ");
                             acao = scan.next();
 
-                            i = sim.calibragem(id, acao);
-
-                            if(i > 0){
-                                switch(i){
-                                    case 1: 
-                                        System.out.println("ID Invalido");
-                                        break;
-
-                                    case 2:
-                                        System.out.println("Valor invalido");
-                                        break;
-                                }
-                            }   
-                        }while(i > 0);
-                        System.out.println("Acao realizada com sucesso");
+                            System.out.println(sim.calibragem(id, acao));   
                     }
                     break;
                 
@@ -260,6 +253,10 @@ public class Principal {
                         System.err.println("erro "+ ex.toString());
                     }
                 }
+
+                else
+                    System.out.println("Acao Invalida");
+        
                 break;
 
                 case 12:    
@@ -273,8 +270,8 @@ public class Principal {
                         fin.close();
 
                         sim.getVeic(true);
-                        System.out.println(" Quantidade de Veiculos "+Simulador.getQuant());
-                        sim.imprimirPista();
+                        System.out.println(" Quantidade de Veiculos "+Simulador.getQuant()+
+                        "\nCarregamento bem sucessido");
             
                     }catch(Exception ex){
                         System.err.println("erro: "+ ex.toString());
