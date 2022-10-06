@@ -1,15 +1,2 @@
-# RaceSimulator-not-realy-
- A simple class work
-
- Classes
-    //Funcionalidades
-        Roda
-        Simulador
-        UsaSimulador
-        Veiculo
-
-    //Interface Grafica
-
-
-    App.java
-
+Trabalho Prático da Disciplina de Programação Orientada a Objetos com Java
+Simulando de forma simples as funcionalidades de um ou mais veículos.

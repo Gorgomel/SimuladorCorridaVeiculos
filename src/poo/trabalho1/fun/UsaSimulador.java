@@ -10,7 +10,7 @@ import java.util.Scanner;
  *  @author Leonardo Brunno Sink Lopes
  */
 
-public class Principal {
+public class UsaSimulador {
     public static void main(String[] args){
         Simulador sim = new Simulador();
         Scanner scan = new Scanner(System.in);
