@@ -7,17 +7,17 @@ import java.io.Serializable;
  */
 
 public class Veiculo  implements Serializable{
-    private float combustivel;
+    //private float combustivel;
     private int id;
     private int distanciaPercorrida;
     private int quantidadeRodas;
-    final private boolean ipva;
-    private String [] desenho = new String[4];
+    //final private boolean ipva;
+    //private String [] desenho = new String[4];
     Roda[] rodas = new Roda[4];
-    private Random rand = new Random();
+    //private Random rand = new Random();
 
     public Veiculo() {
-        this.ipva = rand.nextBoolean();
+       // this.ipva = rand.nextBoolean();
     }
 
     /** Método construtor de um veículo, onde para o ipva é sorteado um valor boolean aleatório e imutável
@@ -28,15 +28,15 @@ public class Veiculo  implements Serializable{
      *  Para os demais valores é definido 0
      * @param id int - ID do novo veículo */
     public Veiculo(int id) {
-        this.ipva = rand.nextBoolean();
+       // this.ipva = rand.nextBoolean();
         this.distanciaPercorrida = 0;
         this.id = id;
-        this.combustivel = 2.5f;
+       // this.combustivel = 2.5f;
         this.quantidadeRodas = 0;
-        this.desenho[0] = "    ____\n";
+       /*  this.desenho[0] = "    ____\n";
         this.desenho[1] = " __/  |_ \\_\n";
         this.desenho[2] = "|  _  "+id+"  _``-.\n";
-        this.desenho[3] =  "'-(_)---(_)--'\n\n\n";
+        this.desenho[3] =  "'-(_)---(_)--'\n\n\n";*/
 		
         for(int i = 0 ; i < 4 ; i++){
             this.rodas[i] = new Roda();
@@ -63,16 +63,16 @@ public class Veiculo  implements Serializable{
     /** Método para obter o id de um veículo
      * @return float - Combustível restante no veículo
     */
-    public float getCombustivel(){
+    /*public float getCombustivel(){
         return this.combustivel;
-    }
+    }*/
 
     /** Método para obter o status do IPVA de um veículo
      * @return boolean - true para IPVA pago e false para IPVA atrasado
     */
-    public boolean getIpva(){
+    /*public boolean getIpva(){
         return this.ipva;
-    }
+    }*/
 
     /** Método para obter o status de cada pneu do veículo
      * @return String - A quantidade de rodas calibradas e a listagem de cada uma
@@ -85,9 +85,9 @@ public class Veiculo  implements Serializable{
     /** Método para obter o desenho de um veículo
      * @return String - Retorna o array contendo a forma do veículo 
     */
-    public String getDesenho(int i){
+    /*public String getDesenho(int i){
         return this.desenho[i];
-    }
+    }*/
 
     /** Método para alterar o valor de uma roda específica
      * @param roda int - Qual roda deverá ser alterada
@@ -155,9 +155,9 @@ public class Veiculo  implements Serializable{
     /** Método para abastecer um veículo
      * @param quant int - Quantidade a ser adicionado
      */
-    public void abastecerVeiculo(int quant) {
+    /*public void abastecerVeiculo(int quant) {
         combustivel += quant;
-    }
+    }*/
 
     /** Método privado para obter o status de calibragem das rodas do veículo
      * @param []rodas Roda - array de 4 índices representando 4 rodas
@@ -175,7 +175,7 @@ public class Veiculo  implements Serializable{
      * @return boolean - true Caso as exigências tenham sido atendidas 
      * @return boolean - false Caso o veículo não possa ser movido por alguma razão
     */
-    public boolean mover(){
+    /*public boolean mover(){
         if(this.combustivel >= 0.55 && confereCalibragem() == true && this.ipva == true){
             String giroCar = "     "; //Para cada unidade movida
 
@@ -190,13 +190,13 @@ public class Veiculo  implements Serializable{
 
         else
             return false;
-    }
+    }*/
 
     /** Método para obter o desenho atualizado de um carro
      */
-    public String desenhaVeiculoPista(){
+    /*public String desenhaVeiculoPista(){
         return this.desenho[0] + this.desenho[1] + this.desenho[2] + this.desenho[3];
-    }
+    }*/
 
     
 }
