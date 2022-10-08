@@ -33,30 +33,15 @@ public class Principal {
     }
 
     // (1) Incluir ve´ıculo
-    public void incluirVeiculo() {
+    public int incluirVeiculo(int id) {
         if (Simulador.getQuant() <= 20) { // Limite de 20 veículos
+            
+            int i = sim.incluirVeiculo(id);
 
-            Label nameLabel = new Label("Digite o ID ");
-            GridPane.setConstraints(nameLabel, 0, 0);
-
-            int i = 0;
-            //int i = sim.incluirVeiculo(i);
-
-            switch (i) {
-                case 0:
-                    System.out.println("Inserido com Sucesso!");
-                    Simulador.setQuant(1);
-                    break;
-
-                case -1:
-                    System.out.println("Invalido. ID já existe");
-                    break;
-
-                case 1:
-                    System.out.println("Nao ha vagas para novos veiculos");
-                    break;
-            }
+            return i;
         }
+
+        return 1;
     }
 
     // (2) Remover ve´ıculo
