@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author Leonardo Brunno Sink Lopes
  */
 
-public class Veiculo  implements Serializable{
+public abstract class Veiculo  implements Serializable{
     //private float combustivel;
     private int id;
     private int distanciaPercorrida;

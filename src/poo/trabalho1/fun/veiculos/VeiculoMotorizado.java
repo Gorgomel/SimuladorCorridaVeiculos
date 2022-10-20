@@ -1,7 +1,7 @@
 package poo.trabalho1.fun.veiculos;
 import poo.trabalho1.fun.Veiculo;
 
-public class VeiculoMotorizado extends Veiculo{
+public abstract class VeiculoMotorizado extends Veiculo{
     private static int gastoMotocicleta;
     private static int gastoPasseio;
     private static int gastoEsportivo;
