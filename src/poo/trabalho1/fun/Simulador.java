@@ -1,265 +1,196 @@
 package poo.trabalho1.fun;
 import java.io.Serializable;
+import java.util.Random;
+
+import poo.trabalho1.fun.veiculos.motorizados.CarroPasseio;
+import poo.trabalho1.fun.veiculos.motorizados.Esportivo;
 
 /** Classe para conter e gerenciar todos os veículos adicionados e suas funcionalidades
  * @author Leonardo Brunno Sink Lopes
  */
 
 public class Simulador implements Serializable {
-    private Veiculo[] veic = new Veiculo[20];
     private static int quantVeic = 0;
-	
-	public Simulador(){	
-		for(int i = 0 ; i < 20 ; i++)
+	private Veiculo[] veic = new Veiculo[20];
+    static Random rand = new Random();
+
+    public Simulador(){	
+		for(int i = 0 ; i < this.veic.length ; i++)
 			this.veic[i] = null;
 	}
 
-	/** Método para encontrar, caso houver, um índice vazio no array de veículos
-	 * @return int - Índice vazio null ou -1 caso não haja */
-	private int indiceVazio(){
-		int i;
-		for(i = 0 ; (i < 20) && (this.veic[i] != null) ; i++);
-		
-		return (i < 20) ? i : -1;
-	}
+    private int bubbleSort(int indice){
+        if(this.veic != null){
+            if(Simulador.getQuant() > 1){
+            int i, j;
+            boolean troca = true;
+            Veiculo x;
 
-	/**	Método privado para encontrar o índice de um ID específico
-	 * @return int - Índice do ID ou -1 caso o ID não pertença ao array*/
-	private int encontraIndice(int id){
-		int i;
-		for(i = 0 ; i < 20 ; i++){
-			if(this.veic[i] != null) //Para evitar maiores problemas, é feito a validação do índice antes da verificação
-				if(this.veic[i].getId() == id)	
-					return i;
-		}
+            for(i = indice ; (i < this.veic.length -1) && (troca) ; i++){
+                troca = false;
 
-		return -1;
-	}
-	
-	/** Método para remover um ID do array 
-	 *  Após a remoção o índice se torna vazio
-	 * @param id int - ID do veículo a ser removido do array
-	 * @return int - 0 Caso remoção bem sucedida
-	 * @return int - 1 Caso o ID não pertença ou já tenha sido removido */
-	public int removerVeic(int id){
-		int i;
-		if((i = encontraIndice(id)) >= 0){//Caso o id pertença ao array será recebido um valor maior ou igual a zero,
-			this.veic[i] = null;
-			return 0;
-		}
+                for(j = indice; j < this.veic.length - i - 1 ; j++){
+                    if(this.veic[j].getId().compareTo(this.veic[j + 1].getId()) < 0){
+                        x = this.veic[j];
+                        this.veic[j] = this.veic[j + 1];
+                        this.veic[j + 1] = x;
+                        troca = true;
+                    }
+                }
+            }
+        }
+            return 1;
+        }
 
-		else
-			return 1;
-	}
-	
-	/** Método para adicionar um novo ID no array
-	 * @param id int - Novo ID a ser inserido no array
-	 * @return int - 0 Caso inserção bem sucedida
-	 * @return int - 1 Caso o array esteja cheio
-	 * @return int - -1 O ID já existe no array */
-	public int incluirVeiculo(int id){
-		int i = indiceVazio(); //Recebe o índice a ser adicionado o novo ID
+        return -1;
+    }
 
-		if(encontraIndice(id) == -1){//Caso o valor seja diferente de -1, o ID já existe e a operação é finalizada
 
-			if(i >= 0){//Caso i for menor que zero, não há mais espaço no array
-				this.veic[i] = new Veiculo(id);
-				return 0;
-			}
+    private int insert(){
+        if(this.veic != null){
+            int i = 0;
+            for(i = i ; (i < this.veic.length) && (this.veic[i] != null) ; i++);
 
-			else
-				return 1;
-		}
+            if((i < this.veic.length) && (this.veic[i+1] == null))
+                return i;
+        }
 
-		else
-			return -1;
-	}
+        return -1;
+    }
+    
+    //Gera o id do Veiculo
+    private String geradorId(int tipo){
+        if(this.veic != null){
+            int i, x;
 
-	/** Método para adicionar combustível ao veículo
-	 * @param id int - ID do veículo a ser abastecido
-	 * @param quant int - Quantidade de combústivel adicionada ao veículo
-	 * @return int - 0 Caso operação bem sucedida
-	 * @return int - 1 Caso o valor de combustível seja invalido
-	 * @return int - -1 Caso o ID não pertença ao array */
-	public int abastecerVeiculo(int id, int quant){
-		int i = encontraIndice(id); 
+            for(i = 0 ; (i < (this.veic.length)) ; i++){
+                if(this.veic[i] != null){
+                    x = this.veic[i].getId().charAt(0) - '0';
 
-		if(i >= 0){// Se o id pertencer ao array
+                    System.out.println("xxx:   "+ x + "  tipp : " + tipo + "\n");
 
-			if(quant > 0){
-				this.veic[i].abastecerVeiculo(quant);
-				return 0;
-			}
+                    if(x > tipo){//Caso o identificador do indice seja maior
+                        System.out.println("xxxxxxxxxxxx222: "+ (x) + "\n");
+                        x = (this.veic[i-1].getId().charAt(0)) - '0';
 
-			return 1;
-		}
+                        System.out.println("xxxxxxxxxxxx222: "+ (x) + "\n");
+                        if(x == tipo){//Caso nao seja o primeiro tipo no vetor
+                            x = (this.veic[i-1].getId().charAt(2)) - '0';
 
-		return -1;
-	}
-	
-	/** Método para alterar o valor de calibragem de um veículo específico, em uma roda específica
-	 * @param id int - ID do veículo
-	 * @param roda int - Roda para ser calibrada ou esvaziada
-	 * @param acao String - Se deverá ser calibrado ou esvaziado
-	 * @return int - -1 Caso a operação bem sucedida
-	 * @return int - 0 Caso o valor da roda não precise ser alterado
-	 * @return int - 1 Caso o ID não pertença ao array
-	 * @return int - 2 Caso o valor para a roda seja invalido
-	 * @return int - 3 Caso a ação especificada seja invalida (Diferente de Esvaziar ou Calibrar) */
-	public int calibragem(int id, int roda, String acao){
-		int i;
+                            System.out.println("iiiiiiiiiiiiiiii:  "+ (i-1) + "\n");
+                            x = x+ 1;
 
-		if((i = encontraIndice(id)) > 0){
-			if(roda < 1 || roda > 4){
-				return 2;
-			}
+                            if(x > 9){
+                               
+                                return "0" + x + i;
+                            }
 
-			else{
-				if(acao.charAt(0) != 'e' && acao.charAt(0) != 'c')
-					return 3;
+                            else{
+                                return "" + "0" + x + i;
+                            }
+                        }  
+                    }
+                    
+                }
 
-				else{
-					if((this.veic[i].calibragem(roda, acao)) == true)
-						return -1;
+                else
+                    return "0" + i;
+            }
+        }
 
-					else
-						return 0;
-				}
-			}
-		}
-		else
-			return 1;
-	}
+        return "-1";
+    }
 
-	/** Método para alterar o valor de calibragem em todas as rodas de um veículo específico
-	 * @param id int - ID do veículo
-	 * @param acao String - Se deverá ser calibrado ou esvaziado
-	 * @return String - "Valor Invalido" Caso a ação especificada seja invalida
-	 * @return String - "ID Invalido" Caso o id não pertença ao array */
-	public String calibragem(int id, String acao){
-		int i = encontraIndice(id);
+    //Incluir Veiculo
+    public int incluirVeiculo(char tipo){
+        String id;
 
-		if(i >= 0){
-			if(acao.charAt(0) == 'e'){
-				
-				return this.veic[i].calibragem(false);
-			}
+        if(Simulador.getQuant() < 20){
+        //Tipo Esportivo
+        if(tipo == 'E'){
+            if(Simulador.getQuant() == 0){//Significa que é o primeiro elemento do vetor
+                this.veic[0] = new Esportivo("00");
+                Simulador.setQuant(1);
+                return 1;
+            }    
 
-			else if(acao.charAt(0) == 'c'){
-				
-				return this.veic[i].calibragem(true);
-			}
+            id = geradorId(1);
+            int k = insert();
+            this.veic[k] = new Esportivo(id);
+            Simulador.setQuant(1);
+        }
 
-			else
-				return "Valor Invalido";
-		}
+        //Tipo Esportivo
+        if(tipo == 'P'){
+            if(Simulador.getQuant() == 0){//Significa que é o primeiro elemento do vetor
+                this.veic[0] = new Esportivo("00");
+                Simulador.setQuant(1);
+                return 1;
+            }    
 
-		else
-			return "ID Invalido";
-	}
+            id = geradorId(2);
+            int k = insert();
+            this.veic[k] = new Esportivo(id);
+            Simulador.setQuant(1);
+        }
 
-	/** Método para mover todos os veículos no array
-	 * O veículo não irá se mover caso: 
-	 * - Não tenha combustível suficiente (0,55 litros ou mais)
-	 * - Não esteja com o IPVA em dia (valor true)
-	 * - Não esteja com todos as rodas calibradas
-	*/
-	public void mover(){
-		int i;
-		for(i = 0 ; i < 20 ; i++)
-			if(this.veic[i] != null)
-				this.veic[i].mover();
-	}
+        //Tipo Passeio
+       /*  if(tipo == 'P'){
+            if(Simulador.getQuant() == 0){//Significa que é o primeiro elemento do vetor
+                this.veic[0] = new CarroPasseio("0");
+                Simulador.setQuant(1);
+                return 1;
+            }
+            
+            id = geradorId(2);
+            int k = insert();
+            veic[k] = new Esportivo(id);
+            Simulador.setQuant(1);
+        }
 
-	/** Método para mover um veículo específico
-	 * O veículo não irá se mover caso: 
-	 * - Não tenha combustível suficiente (0,55 litros ou mais)
-	 * - Não esteja com o IPVA em dia (valor true)
-	 * - Não esteja com todos as rodas calibradas
-	 * @param id int - ID do veículo a ser movido
-	 * @return boolean - true Caso o veículo tenha sido movido
-	 * @return boolean - false Caso o veíuclo não tenha sido movido */
-	public boolean mover(int id){
-		int i = encontraIndice(id);
+        //Tipo Esportivo
+        if(tipo == 'M'){
+            if(Simulador.getQuant() == 0){//Significa que é o primeiro elemento do vetor
+                this.veic[0] = new Esportivo("0");
+                Simulador.setQuant(1);
+                return 1;
+            }
+            
+            id = geradorId(3);
+            int k = insert();
+            veic[k] = new Esportivo(id);
+            Simulador.setQuant(1);
+        }
 
-		if(i >= 0){
-			if(this.veic[i].mover() == true)
-				return true;
+        //Tipo Bicicleta
+        if(tipo == 'B'){
+            if(Simulador.getQuant() == 0){//Significa que é o primeiro elemento do vetor
+                this.veic[0] = new Esportivo("0");
+                Simulador.setQuant(1);
+                return 1;
+            }
+            
+            id = geradorId(4);
+            int k = insert();
+            veic[k] = new Esportivo(id);
+            Simulador.setQuant(1);
+        }*/
 
-			else
-				return false;
-		}
+        for(int i = 0 ; (i < this.veic.length) && (this.veic[i] != null) ; i++){
+            System.out.println("indice i: " + i + "\tid: "+ this.veic[i].getId() + "\n");
+        }
+    }
+    return 2;
+    }
 
-		return false;
-	}
+    
+}
 
-	/** Método específico para atualizar a quantidade de veículos no array após o carregamento do arquivo
-	 * @param b boolean - Parâmetro simbólico apenas para diferenciar os métodos*/
-	public void getVeic(boolean b){
-		for(int i = 0 ; i < 20 ; i++){
-			if(this.veic[i] != null)
-				Simulador.setQuant(1);
-		}
-	}
+    public static int getQuant(){
+        return Simulador.quantVeic;
+    }
 
-	/** Método para obter todas as informações de todos os veículos dentro do array
-	 */
-	public void getVeic(){
-		int i;
-		
-		for(i = 0 ; i < 20 ; i++){
-			if(this.veic[i] != null){
-				System.out.println("Id do Veiculo: " + this.veic[i].getId());
-				System.out.println("Distancia Percorrida: " + this.veic[i].getDistanciaPercorrida());
-				System.out.println("Combustivel: " + this.veic[i].getCombustivel());
-				System.out.println("IPVA Status: " + this.veic[i].getIpva());
-				System.out.println(this.veic[i].getRoda() + "\n");
-			}	
-		}
-	}
-
-	/** Método para obter todas as informações de um veículo específico
-	 * @param it int - ID do veículo
-	 */
-	public void getVeic(int id){
-		int i;
-
-		if((i = encontraIndice(id)) >= 0)
-		{
-			System.out.println("Id do Veiculo: " + this.veic[i].getId());
-			System.out.println("Distancia Percorrida: " + this.veic[i].getDistanciaPercorrida());
-			System.out.println("Combustivel: " + this.veic[i].getCombustivel());
-			System.out.println("IPVA Status: " + this.veic[i].getIpva());
-			System.out.println("Roda Status:\n" + this.veic[i].getRoda());
-		}
-	}
-
-	/** Método para obter a quantidade de veículos no array
-	 * @return int - Retorna a variavel estática quantVeic;
-	 */
-	public static int getQuant(){
-		return Simulador.quantVeic;
-	}
-
-	/** Método para diminuir 1 veículo do total
-	 * Para diminuir, o método deve ser chamado sem parâmetros
-	*/
-	public static void setQuant(){
-		Simulador.quantVeic -= 1; 
-	}
-
-	/** Método para adicionar um veículo no total
-	 * @param i int - Parâmetro simbólico para adicionar um veículo na contagem total
-	 */
 	public static void setQuant(int i){
-		Simulador.quantVeic += 1; 
-	}
-
-	/** Método para imprimir todos os veículos do array em uma pista
-	*/
-	public void imprimirPista(){
-		for(int i = 0 ; i < 20 ; i++)
-			if(this.veic[i] != null)
-				System.out.print(this.veic[i].desenhaVeiculoPista());
-	}
+        Simulador.quantVeic += 1;
+    }
 }

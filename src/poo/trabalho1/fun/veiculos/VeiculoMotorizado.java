@@ -2,18 +2,16 @@ package poo.trabalho1.fun.veiculos;
 import poo.trabalho1.fun.Veiculo;
 
 public abstract class VeiculoMotorizado extends Veiculo{
-    private static int gastoMotocicleta;
-    private static int gastoPasseio;
-    private static int gastoEsportivo;
-    private float combustivel;
-    private float valorIpva;
+    private static final double gastoMotocicleta = 0.25f;
+    private static final double gastoPasseio = 0.75f;
+    private static final double gastoEsportivo = 2.3f;
+    private double combustivel;
+    private double valorIpva;
 
-    public VeiculoMotorizado(){
-        VeiculoMotorizado.gastoMotocicleta = 0;
-        VeiculoMotorizado.gastoPasseio = 0;
-        VeiculoMotorizado.gastoEsportivo = 0;
-        this.combustivel = 2.5f;
-        this.valorIpva = 500;
+    public VeiculoMotorizado(String string, double valorIpva){
+        super(string);
+        this.combustivel = combustivel;
+        this.valorIpva = valorIpva;
     }
 
     public void abastecer(){

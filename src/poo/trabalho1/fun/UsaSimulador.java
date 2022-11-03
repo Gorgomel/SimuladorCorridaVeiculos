@@ -23,16 +23,18 @@ public class UsaSimulador {
             System.out.println("(1) Incluir veiculo");
             System.out.println("(2) Remover veiculo");
             System.out.println("(3) Abastecer veiculo");
-            System.out.println("(4) Movimentar um veiculo");
-            System.out.println("(5) Movimentar todos os veiculos");
-            System.out.println("(6) Imprimir todos os dados de um veiculo");
+            System.out.println("(4) Movimentar um veiculo especifico");
+            System.out.println("(5) Movimentar veiculos por tipo");
+            System.out.println("(6) Movimentar todos os veiculos");
             System.out.println("(7) Imprimir todos os dados de todos os veiculos");
-            System.out.println("(8) Esvaziar/calibrar um pneu especifico");
-            System.out.println("(9) Esvaziar/calibrar todos os pneus de um veiculo especifico");
-            System.out.println("(10) Imprimir pista de corrida");
-            System.out.println("(11) Gravar veiculos em arquivo");
-            System.out.println("(12) Ler veiculos do arquivo");
-            System.out.println("(13) Sair da aplicacao");
+            System.out.println("(8) Imprimir dados de veiculos por tipo");
+            System.out.println("(9) Esvaziar/calibrar um pneu especifico");
+            System.out.println("(10) Calibrar todos os pneus de veiculos por tipo");
+            System.out.println("(11) Esvaziar todos os pneus de veiculos por tipo");
+            System.out.println("(12) Imprimir pista de corrida");
+            System.out.println("(13) Gravar veiculos em arquivo");
+            System.out.println("(14) Ler veiculos do arquivo");
+            System.out.println("(15) Sair da aplicacao");   
 
             do{// Validando a entrada correta de valores para o menu
                 n = scan.nextInt(); 
@@ -47,29 +49,43 @@ public class UsaSimulador {
                     System.out.println("\nINCLUIR VEICULO");
 
                     if(Simulador.getQuant() <= 20){ // Limite de 20 veículos 
-                        System.out.println("Digite o iD : ");
+                        String tipo;
+                        //informe o tipo
+                        do{
+                            System.out.println("Informe o tipo de veiculo (B, M, C, E): ");
+                            tipo = scan.next();
+                            
+                            if(tipo.charAt(0) != 'B' || tipo.charAt(0) != 'b' || 
+                            tipo.charAt(0) != 'M' || tipo.charAt(0) != 'm' ||
+                            tipo.charAt(0) != 'C' || tipo.charAt(0) != 'c' ||
+                            tipo.charAt(0) != 'E' || tipo.charAt(0) != 'e'){
 
-                        int i = scan.nextInt();
-                        i = sim.incluirVeiculo(i);
+                                System.out.println("Invalido");
+                            }
+
+                        }while(tipo.charAt(0) != 'B' && tipo.charAt(0) != 'b' && 
+                        tipo.charAt(0) != 'M' && tipo.charAt(0) != 'm' &&
+                        tipo.charAt(0) != 'C' && tipo.charAt(0) != 'c' &&
+                        tipo.charAt(0) != 'E' && tipo.charAt(0) != 'e');
+
+
+                        System.out.println("Tipo eh: "+tipo.charAt(0));
+                        int i = sim.incluirVeiculo(tipo.charAt(0));
 
                         switch(i){
                             case 0:
-                                System.out.println("Inserido com Sucesso!");
-                                Simulador.setQuant(1);
-                                break;
-
-                            case -1: 
-                                System.out.println("Invalido. ID já existe");
+                                System.out.println("Nao ha vagas para novos veiculos");
                                 break;
 
                             case 1:
-                                System.out.println("Nao ha vagas para novos veiculos");
+                                System.out.println("Veiculo Inserido com Sucesso");
+                                Simulador.setQuant(1);
                                 break;
                         }
                     }
                     break;
                 
-                //(2) Remover ve´ıculo
+                /*//(2) Remover ve´ıculo
                 case 2:
                     System.out.println("\nREMOVER VEICULO");
 
@@ -278,7 +294,7 @@ public class UsaSimulador {
                     }
                 
 
-                break;
+                break;*/
         }
     }while(n != 13);
 
