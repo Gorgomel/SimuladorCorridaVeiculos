@@ -7,12 +7,12 @@ import java.io.Serializable;
  */
 
 public abstract class Veiculo implements Serializable{
-    private String id;
+    private int id;
     private int distanciaPercorrida;
     private int quantidadeRodas;
     Roda[] rodas = new Roda[4];
 
-    public Veiculo(String id) {
+    public Veiculo() {
         this.distanciaPercorrida = 0;
         this.id = id;
         this.quantidadeRodas = 0;
@@ -31,11 +31,11 @@ public abstract class Veiculo implements Serializable{
     /** Método para obter o id de um veículo
      * @return int - id do veículo
     */
-	public String getId(){
+	public int getId(){
 		return this.id;
 	}
 
-    public void setId(String id){
+    public void setId(int id){
         this.id = id;
     }
 

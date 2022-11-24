@@ -8,8 +8,7 @@ public abstract class VeiculoMotorizado extends Veiculo{
     private double combustivel;
     private double valorIpva;
 
-    public VeiculoMotorizado(String string, double valorIpva){
-        super(string);
+    public VeiculoMotorizado(double valorIpva){
         this.combustivel = combustivel;
         this.valorIpva = valorIpva;
     }

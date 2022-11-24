@@ -3,8 +3,8 @@ import poo.trabalho1.fun.veiculos.VeiculoMotorizado;
 
 public class Motocicleta extends VeiculoMotorizado implements Ipva{
 
-    public Motocicleta(String id){
-        super((( "3"+ id)), (valor_Base * cte_Motocicleta));
+    public Motocicleta(){
+        super(valor_Base * cte_Motocicleta);
 
     }
 

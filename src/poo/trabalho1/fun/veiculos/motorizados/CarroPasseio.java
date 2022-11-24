@@ -3,9 +3,8 @@ import poo.trabalho1.fun.veiculos.VeiculoMotorizado;
 
 public class CarroPasseio extends VeiculoMotorizado implements Ipva{
     
-    public CarroPasseio(String id){
-        super((("2" + id)), (valor_Base*cte_Passeio));
-
+    public CarroPasseio(){
+        super(valor_Base*cte_Passeio);
     }
 
     public void abastecer(){
