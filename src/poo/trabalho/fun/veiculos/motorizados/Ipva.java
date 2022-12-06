@@ -1,4 +1,4 @@
-package poo.trabalho1.fun.veiculos.motorizados;
+package poo.trabalho.fun.veiculos.motorizados;
 
 public interface Ipva {
 
