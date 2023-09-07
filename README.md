@@ -1,2 +1,1 @@
-Trabalho Prático da Disciplina de Programação Orientada a Objetos com Java
-Simulando de forma simples as funcionalidades de um ou mais veículos.
+Trabalho prático da disciplina de Programação Orientada a Objetos, aplicando os princípios e paradigmas da orientação a objetos utilizando a linguagem Java.
