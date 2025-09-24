@@ -1,3 +1,5 @@
+package poo.trabalho.fun;
+
 import java.util.Random;
 import java.io.Serializable;
 
@@ -8,7 +10,7 @@ import java.io.Serializable;
 public final class Roda implements Serializable{
     private boolean CalibragemPneu;
 	
-	/** Método construtor onde é sorteado um valor boolean aleátorio para a roda
+	/** MÃ©todo construtor onde Ã© sorteado um valor boolean aleÃ¡torio para a roda
 	 * onde true = calibrada e false = vazia
 	 */
 	public Roda(){
@@ -16,16 +18,16 @@ public final class Roda implements Serializable{
 		this.CalibragemPneu = rand.nextBoolean();
 	}
 	
-	/** Método para obter o status de calibragem da roda
+	/** MÃ©todo para obter o status de calibragem da roda
 	 */
 	public boolean getCalibragem(){
 		return this.CalibragemPneu;
 	}
 	
-	/** Método para alterar o status de calibragem da roda
-	 * @param vari boolean - Se deverá ser calibrada ou esvaziada
-	 * @return boolean - true Caso o parâmetro seja diferente do status da roda, e alteração tenha sido realizada
-	 * @return boolean - false Caso o parâmetro seja igual ao status da roda. Nenhuma alteração é realizada
+	/** MÃ©todo para alterar o status de calibragem da roda
+	 * @param vari boolean - Se deverÃ¡ ser calibrada ou esvaziada
+	 * @return boolean - true Caso o parÃ¢metro seja diferente do status da roda, e alteraÃ§Ã£o tenha sido realizada
+	 * @return boolean - false Caso o parÃ¢metro seja igual ao status da roda. Nenhuma alteraÃ§Ã£o Ã© realizada
 	 */
 	public boolean setCalibragem(boolean vari){
 		if(this.CalibragemPneu != vari){

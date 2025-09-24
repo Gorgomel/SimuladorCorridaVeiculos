@@ -19,20 +19,32 @@ dependencies {
 }
 
 application {
-    mainClass.set("app.simulator.App")
+    mainClass.set("poo.trabalho.fun.UsaSimulador")
 }
 
 tasks.test { useJUnitPlatform() }
 
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
 spotless {
     java {
         googleJavaFormat()
-        target("src/**/*.java")
+        target("src/main/java/**/*.java", "src/test/java/**/*.java")
+        targetExclude("src/main/java/poo/**")   
     }
 }
+
+
 
 jacoco { toolVersion = "0.8.12" }
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
     reports { xml.required.set(true); html.required.set(true) }
+}
+
+
+tasks.named<JavaExec>("run") {
+    standardInput = System.`in`
 }
