@@ -2,8 +2,6 @@
 
 Aplicativo **console** em **Java 17** para simular inclusão, movimentação e manutenção de veículos (calibragem de pneus, abastecimento), com **persistência em arquivo** e **build reproduzível** via Gradle.
 
-> Estado: **apresentável** ✅ — roda com `gradlew`, possui testes básicos, cobertura (JaCoCo), e README de uso.
-
 ---
 
 ## ✨ Funcionalidades
@@ -174,29 +172,6 @@ Salvo em: saves/simulador.dat
   tasks.named<JavaExec>("run") { standardInput = System.`in` }
   ```
 * **Logs**: SLF4J + Logback já prontos para uso (adicione um `logback.xml` em `src/main/resources` se desejar).
-
----
-
-## 🔍 Solução de problemas
-
-* **`NoSuchElementException` ao rodar com Gradle**
-  Já tratamos leituras via `Leitor`. Se persistir, verifique se o `run` recebe `stdin` (ver configuração acima).
-* **Erro ao salvar**: `FileNotFoundException: saves/simulador.dat`
-  Crie a pasta `saves/` manualmente ou ajuste o código para criá-la automaticamente.
-* **Classe principal não encontrada**
-  Confirme em `build.gradle.kts`:
-
-  ```kotlin
-  application { mainClass.set("poo.trabalho.fun.UsaSimulador") }
-  ```
-
----
-
-## 🧭 Roadmap curto (opcional)
-
-* [ ] Aplicar Spotless em todo o pacote legado (remover `targetExclude`).
-* [ ] Mais testes (mover por tipo/todos, IPVA, consumo).
-* [ ] GUI (Swing/JavaFX) mantendo o motor de regras intacto.
 
 ---
 
