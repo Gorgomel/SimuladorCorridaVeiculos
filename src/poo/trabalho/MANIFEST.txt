@@ -1,3 +1,0 @@
-Main-Class: fun.Principal
-Name: fun/Principal.class
-Java-Bean: True

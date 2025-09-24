@@ -1,0 +1,24 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# Binários/legados
+bin/
+META-INF/
+
+# Dados de execução
+saves/
+*.dat
+*.ser
+
+# SO
+.DS_Store
+Thumbs.db
+
+SimuladorVeiculos.jar
