@@ -18,3 +18,7 @@ bin/
 .classpath
 .settings/
 '@ | Out-File -Encoding utf8 .\.gitignore
+
+saves/
+*.dat
+*.ser
