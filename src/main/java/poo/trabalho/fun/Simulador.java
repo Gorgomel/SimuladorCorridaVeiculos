@@ -266,4 +266,83 @@ public class Simulador implements Serializable {
     public List<Veiculo> getAllVehiclesView() {
         return Collections.unmodifiableList(vehicles);
     }
+
+    // ======================= PERSISTÊNCIA =======================
+
+    /** Salva o estado atual em arquivo. Escreve uma List<Veiculo> e o nid. */
+    public void salvarEmArquivo(java.io.File file) throws java.io.IOException {
+        try (var fos = new java.io.FileOutputStream(file);
+            var oos = new java.io.ObjectOutputStream(fos)) {
+            // Escreve lista e nid para continuar sequência de IDs
+            oos.writeObject(new java.util.ArrayList<>(vehicles));
+            oos.writeInt(nid);
+        }
+    }
+
+    /** Lê estado a partir de arquivo. Aceita tanto List<Veiculo> quanto Veiculo[] (formato antigo). */
+    @SuppressWarnings("unchecked")
+    public void lerDeArquivo(java.io.File file) throws java.io.IOException, ClassNotFoundException {
+        try (var fis = new java.io.FileInputStream(file);
+            var ois = new java.io.ObjectInputStream(fis)) {
+
+            Object obj = ois.readObject();
+            java.util.List<Veiculo> loaded;
+
+            if (obj instanceof java.util.List) {
+                loaded = (java.util.List<Veiculo>) obj;
+            } else if (obj instanceof Veiculo[]) {
+                loaded = java.util.Arrays.asList((Veiculo[]) obj); // compat antigo
+            } else {
+                throw new java.io.IOException("Formato de arquivo desconhecido: " + obj.getClass());
+            }
+
+            vehicles.clear();
+            byId.clear();
+            for (Veiculo v : loaded) {
+                if (v != null) {
+                    vehicles.add(v);
+                    byId.put(v.getId(), v);
+                }
+            }
+
+            // tentar ler nid; se arquivo antigo não tiver, recalcula fallback
+            try {
+                this.nid = ois.readInt();
+            } catch (java.io.EOFException eof) {
+                // Arquivo antigo: define nid como 1 + maior sufixo encontrado
+                this.nid = calcularProximoNid();
+            }
+
+            // sincroniza contador público
+            Simulador.setQuant(vehicles.size());
+        }
+    }
+
+    /** Overloads convenientes (String path) */
+    public void salvarEmArquivo(String caminho) throws java.io.IOException {
+        salvarEmArquivo(new java.io.File(caminho));
+    }
+    public void lerDeArquivo(String caminho) throws java.io.IOException, ClassNotFoundException {
+        lerDeArquivo(new java.io.File(caminho));
+    }
+
+    /** Calcula próximo nid a partir dos IDs atuais (para compat com arquivos antigos). */
+    private int calcularProximoNid() {
+        int maxSuffix = 0;
+        for (Veiculo v : vehicles) {
+            // extrai sufixo (remove o dígito líder de tipo, ex.: 1|23 -> 23)
+            int id = v.getId();
+            int leader = leadingDigit(id);
+            // remove o líder (1 dígito) do início
+            String s = Integer.toString(id);
+            if (!s.isEmpty() && Character.getNumericValue(s.charAt(0)) == leader) {
+                String tail = s.substring(1);
+                try {
+                    maxSuffix = Math.max(maxSuffix, Integer.parseInt(tail));
+                } catch (NumberFormatException ignore) {}
+            }
+        }
+        return Math.max(1, maxSuffix + 1);
+    }
+
 }
