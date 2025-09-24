@@ -1,24 +1,22 @@
-@'
-# Java
-*.class
-*.log
-
-# Build outputs
+# Gradle
+.gradle/
 build/
-out/
-target/
-bin/
-*.jar
+!gradle/wrapper/gradle-wrapper.jar
 
-# IDEs/Editors
-.idea/
+# IDEs
 .vscode/
+.idea/
 *.iml
-.project
-.classpath
-.settings/
-'@ | Out-File -Encoding utf8 .\.gitignore
 
+# Binários/legados
+bin/
+META-INF/
+
+# Dados de execução
 saves/
 *.dat
 *.ser
+
+# SO
+.DS_Store
+Thumbs.db
